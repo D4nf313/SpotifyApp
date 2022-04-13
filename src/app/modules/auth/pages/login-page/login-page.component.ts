@@ -28,7 +28,7 @@ export class LoginPageComponent implements OnInit {
   this.authService.sendCredentials(email, password)
   .subscribe( responseOk => {
       
-    console.log()'Sesion iniciada correcta');
+    console.log('Sesion iniciada correcta');
 
   })
    
