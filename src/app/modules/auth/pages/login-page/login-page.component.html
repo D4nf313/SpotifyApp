@@ -1,4 +1,4 @@
-<div class="login-auth-page">
+ <div class="login-auth-page">
     <div class="login-auth-wrapper">
         <h3>Para continuar, inicia sesión en Spotify.</h3>
         <div class="login-social-zone">
@@ -20,17 +20,21 @@
                 <a class="link" href="">¿Se te ha olvidado la contraseña?</a>
             </div>
            
-            <div class="form-action">
-                <button  [disabled]="formLogin.invalid" class="login social-btn">Iniciar sesión</button>
+            <div *ngIf="errorSession">
+                    Ocurrio un error con tu email o password
             </div>
-        </form>
-        <div>
-            <hr>
-             Raw {{ formLogin.value | json }}
-             <br>
-             <hr> Valido: {{ formLogin.valid}}
-             <br>
-             <hr> Invalido: {{ formLogin.invalid}}
+   
+        <div class="form-action">
+            <button [disabled]="formLogin.invalid" class="login social-btn" >Iniciar sesión</button>
         </div>
+    </form>
+    <div>
+        <hr>
+         Raw {{ formLogin.value | json }}
+         <br>
+         <hr> Valido: {{ formLogin.valid}}
+         <br>
+         <hr> Invalido: {{ formLogin.invalid}}
     </div>
-</div>
+    </div>
+</div> 

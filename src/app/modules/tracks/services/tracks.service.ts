@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TrackModel } from '@core/models/tracks.models';
 import { catchError, map, mergeMap, Observable, of, tap } from 'rxjs';
@@ -23,24 +23,28 @@ export class TracksService {
   }
 
   getAllTracks$(): Observable<any> {
-    return this.httpClient.get(`${this.URL}/tracks`).pipe(
-      map(({ data }: any) => {
-        return data;
+    return this.httpClient
+      .get(`${this.URL}/tracks`, {
+        headers: new HttpHeaders({ authorization: 'Bearer TOKEN' }),
       })
-    );
+      .pipe(
+        map(({ data }: any) => {
+          return data;
+        })
+      );
   }
   getAllRandom(): Observable<any> {
     return this.httpClient.get(`${this.URL}/tracks`).pipe(
-      tap(data => console.log('*****',data)),
+      tap((data) => console.log('*****', data)),
       mergeMap(({ data }: any) => this.skypByid(data, 2)),
       /*    map((dataRevert) => {
         return dataRevert.filter((track: TrackModel) => track._id != 1);
       }) */
       tap((data) => console.log('===>', data)),
       catchError((err) => {
-        const { status, statusText } =err;
-          console.log('alerta error, algo ah sucedido', [status, statusText])
-        return of([])
+        const { status, statusText } = err;
+        console.log('alerta error, algo ah sucedido', [status, statusText]);
+        return of([]);
       })
     );
   }

@@ -17,32 +17,26 @@ export class TracksPageComponent implements OnInit {
   constructor(private TracksService: TracksService) {}
 
   ngOnInit(): void {
-    this.loadDataAll()
-    this.loadDataRandom()
-
+    this.loadDataAll();
+    this.loadDataRandom();
   }
 
-async loadDataAll():Promise<any>{
-  this.tracksTrending  = await  this.TracksService.getAllTracks$().toPromise()
-    
-
-}
-
-loadDataRandom():void{
-   this.TracksService.getAllRandom().subscribe((response: TrackModel[]) => {
-    this.tracksRandom = response;
-    console.log(response);
-  }, err => {
-    console.log('Error de conexion')
+  async loadDataAll(): Promise<any> {
+    this.tracksTrending = await this.TracksService.getAllTracks$().toPromise();
+    //this.tracksRandom= await this.TracksService.getAllTracks$().toPromise();
   }
-  );  
 
-}
-
-
-
-
-
+  loadDataRandom(): void {
+    this.TracksService.getAllRandom().subscribe(
+      (response: TrackModel[]) => {
+        this.tracksRandom = response;
+        console.log(response);
+      },
+      (err) => {
+        console.log('Error de conexion');
+      }
+    );
+  }
 
   ngOnDestroy(): void {}
 }
